@@ -126,13 +126,13 @@ function draw() {
                 );
                 ctx.fillText(
                     Math.round(node.g),
-                    node.x * squareSize + 10,
-                    node.y * squareSize + squareSize - 20
+                    node.x * squareSize + 15,
+                    node.y * squareSize + squareSize - 25
                 );
                 ctx.fillText(
                     Math.round(node.h),
-                    node.x * squareSize + squareSize - 10,
-                    node.y * squareSize + squareSize - 20
+                    node.x * squareSize + squareSize - 23,
+                    node.y * squareSize + squareSize - 25
                 );
             }
         }
