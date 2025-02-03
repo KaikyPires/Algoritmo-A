@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo A* - Labirinto</title>
+
+    <!-- Fonte Pixelada Arcade -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="icon" href="Mario.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        body {
+            background: #5C94FC; /* Azul clássico do céu no Mario */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        canvas {
+            border: 6px solid #A0522D; /* Marrom dos blocos */
+            border-radius: 10px;
+            background-color: #ADD8E6; /* Azul claro para lembrar o céu */
+            box-shadow: 0 0 20px #A0522D;
+            width: 800px;
+            height: 800px;
+            margin-right: 80px; /* Maior espaçamento do labirinto para os botões */
+        }
+
+        #controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            right: 50px; /* Maior afastamento da borda lateral */
+            top: 50%;
+            transform: translateY(-50%);
+            gap: 20px; /* Espaçamento maior entre os botões */
+        }
+
+        button {
+            background: #FF0000; /* Vermelho do boné do Mario */
+            color: white;
+            border: 3px solid #000;
+            padding: 15px 20px; /* Aumentando o tamanho dos botões */
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            text-transform: uppercase;
+            box-shadow: 4px 4px 0px #000;
+            width: 200px; /* Fazendo os botões terem um tamanho uniforme */
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover {
+            background: #FFD700; /* Amarelo para lembrar o bloco de interrogação */
+            transform: scale(1.05);
+            box-shadow: 4px 4px 0px #FFF;
+        }
+
+        #stepCounter {
+            font-size: 16px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #FFD700;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            margin-top: 20px;
+            background: none;
+            padding: 10px;
+            border-radius: 8px;
+            width: 200px; /* Mantendo alinhado ao tamanho dos botões */
+        }
+
+        @media screen and (max-width: 768px) {
+            #container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            canvas {
+                width: 100%;
+                height: auto;
+                margin-right: 0;
+            }
+
+            #controls {
+                position: relative;
+                top: auto;
+                right: auto;
+                transform: none;
+                margin-top: 20px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            button {
+                font-size: 12px;
+                padding: 10px;
+                width: 150px;
+                height: 40px;
+            }
+
+            #stepCounter {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <canvas id="mazeCanvas"></canvas>
+        
+        <div id="controls">
+            <button id="startButton">🚀 Start</button>
+            <button id="resetButton">🔄 Reset</button>
+            <button id="selectStart">📍 Start Pos</button>
+            <button id="selectEnd">🏁 End Pos</button>
+            <button id="generateObstaclesButton">🧱 Obstacles</button>
+
+            <p id="stepCounter">Steps: 0</p>
+        </div>
+    </div>
+  
+    <script src="a_estrela.js"></script>
+</body>
+
+</html>

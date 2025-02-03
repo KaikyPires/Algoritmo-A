@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo A* - Análise de Desempenho</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="grafico.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="icon" href="Mario.png">
+
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Press Start 2P', cursive;
+    }
+    body {
+        background: #5C94FC;
+        color: white;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+    }
+    h1 {
+        font-size: 1.5rem;
+        text-shadow: 2px 2px 5px #FFD700;
+        margin-bottom: 30px;
+    }
+    .main-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        max-width: 1500px;
+        gap: 30px;
+    }
+    .chart-container {
+        flex: 3;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 30px;
+        border: 6px solid #FFD700;
+        border-radius: 15px;
+        box-shadow: 0 0 20px #FFD700;
+    }
+    canvas {
+        width: 100%;
+        height: 500px;
+        background-color: #ADD8E6;
+        border-radius: 15px;
+        box-shadow: 0 0 20px #FFD700;
+    }
+    .numbers-container {
+        flex: 2;
+        text-align: left;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 30px;
+        border: 6px solid #FFD700;
+        border-radius: 15px;
+        box-shadow: 0 0 20px #FFD700;
+        overflow-y: auto;
+        max-height: 500px;
+    }
+    .numbers-container strong {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 20px;
+    }
+    .numbers-container p {
+        font-size: 14px;
+        color: #FFD700;
+        line-height: 1.8;
+        word-wrap: break-word;
+    }
+</style>
+</head>
+<body>
+<h1>Algoritmo A* - Análise de Desempenho</h1>
+<div class="main-container">
+    <!-- Contêiner do Gráfico -->
+    <div class="chart-container">
+        <canvas id="grafico"></canvas>
+    </div>
+
+    <!-- Contêiner de Resultados -->
+    <div class="numbers-container" id="resultados">
+        <strong>Resultados:</strong>
+    </div>
+</div>
+
+</body>
+</html>
