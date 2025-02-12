@@ -1,36 +1,31 @@
-
 function gerarDados() {
     const tamanhos = [10, 50, 100, 1000];
+    const temposFixos = { 10: 0.06, 50: 0.12, 100: 0.25, 1000: 2.5 }; // Valores fixos para evitar variação
+    
     return tamanhos.map(tamanho => {
-        const tempoExecucao = (Math.random() * 10).toFixed(2);
-        const caminhoEncontrado = Math.random() > 0.3;
-        const caminho = caminhoEncontrado ? gerarCaminhoAleatorio(tamanho) : "Nenhum caminho encontrado";
-        return { tamanho, tempoExecucao, caminho };
+        const tempoExecucao = temposFixos[tamanho].toFixed(4); // Tempo fixo para cada tamanho
+        return { tamanho, tempoExecucao, caminho: gerarCaminhoOrdenado(tamanho) };
     });
 }
 
-function gerarCaminhoAleatorio(tamanho) {
+function gerarCaminhoOrdenado(tamanho) {
     const caminho = [];
-    let atual = 0;
-    while (atual < tamanho - 1) {
-        atual += Math.floor(Math.random() * 10) + 1;
-        if (atual >= tamanho) break;
-        caminho.push(atual);
+    for (let i = 0; i < tamanho; i++) {
+        caminho.push(i);
     }
-    caminho.push(tamanho - 1);
     return caminho;
 }
 
 function desenharGrafico(dados) {
     const ctx = document.getElementById("grafico").getContext("2d");
     new Chart(ctx, {
-        type: "bar", // Alterado para gráfico de barras
+        type: "bar",
         data: {
             labels: dados.map(d => d.tamanho),
             datasets: [{
                 label: "Tempo de Execução (ms)",
                 data: dados.map(d => d.tempoExecucao),
-                borderColor: "#ffcc000",
+                borderColor: "#ffcc00",
                 backgroundColor: "rgba(255, 204, 0, 0.99)",
                 borderWidth: 2,
                 pointBackgroundColor: "#ffcc00",
@@ -56,8 +51,7 @@ function desenharGrafico(dados) {
                     font: {
                         family: "'Press Start 2P', sans-serif", 
                         size: 18,
-                         color: "#000"
-
+                        color: "#000"
                     }
                 }
             },
@@ -82,5 +76,4 @@ window.onload = () => {
     const resultados = gerarDados();
     exibirResultados(resultados);
     desenharGrafico(resultados);
-    
 };
