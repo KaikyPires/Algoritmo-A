@@ -12,7 +12,7 @@ const grid = [];
 const openSet = [], closedSet = [];
 let startNode, endNode, path = [];
 let running = false;
-let speed = 100; // Velocidade (ms)
+let speed = 200; // Velocidade (ms)
 let steps = 0; // Contador de passos
 let selectingStart = false, selectingEnd = false;
 const marioImg = new Image();
@@ -151,9 +151,31 @@ function draw() {
     }
 
     for (let node of path) {
-        ctx.fillStyle = "#4d4dff";
+        ctx.fillStyle = "#4d4dff"; // Cor do caminho
         ctx.fillRect(node.x * squareSize, node.y * squareSize, squareSize, squareSize);
+    
+        // Exibir valores (G, H e F) no caminho
+        if (showValues) {
+            ctx.fillStyle = "white"; // Cor para contraste no caminho azul
+            ctx.font = "12px 'Press Start 2P'";
+            ctx.fillText(
+                Math.round(node.f),
+                node.x * squareSize + squareSize / 2,
+                node.y * squareSize + squareSize / 2
+            );
+            ctx.fillText(
+                Math.round(node.g),
+                node.x * squareSize + 15,
+                node.y * squareSize + squareSize - 25
+            );
+            ctx.fillText(
+                Math.round(node.h),
+                node.x * squareSize + squareSize - 23,
+                node.y * squareSize + squareSize - 25
+            );
+        }
     }
+    
 
     if (startNode) {
         ctx.drawImage(marioImg, startNode.x * squareSize + 5, startNode.y * squareSize + 5, squareSize - 10, squareSize - 10);
@@ -234,15 +256,23 @@ function animateMarioPath() {
     let i = 0;
     function moveMario() {
         if (i < path.length) {
-            startNode = path[i]; // Atualizar a posição do Mario
+            startNode = path[i]; // Atualiza a posição do Mario
+            showValues = true; // Mantém os valores visíveis
             draw();
             i++;
             setTimeout(moveMario, speed);
+        } else {
+            // Após a animação, redesenhar para garantir que os valores sejam mostrados
+            setTimeout(() => {
+                showValues = true; // Garante que os valores ainda apareçam
+                draw(); // Redesenha a grade para exibir os valores
+            }, speed);
         }
     }
 
     moveMario();
 }
+
 
 document.getElementById("startButton").addEventListener("click", () => {
     if (!startNode || !endNode) {

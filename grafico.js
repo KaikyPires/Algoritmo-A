@@ -1,11 +1,36 @@
 function gerarDados() {
     const tamanhos = [10, 50, 100, 1000];
-    const temposFixos = { 10: 0.06, 50: 0.12, 100: 0.25, 1000: 2.5 }; // Valores fixos para evitar variação
+    const iteracoes = 10000;
+    let resultados = {};
     
-    return tamanhos.map(tamanho => {
-        const tempoExecucao = temposFixos[tamanho].toFixed(4); // Tempo fixo para cada tamanho
-        return { tamanho, tempoExecucao, caminho: gerarCaminhoOrdenado(tamanho) };
-    });
+    // Verifica se há valores armazenados no localStorage
+    const armazenados = localStorage.getItem("temposExecucao");
+    if (armazenados) {
+        resultados = JSON.parse(armazenados);
+    } else {
+        resultados = tamanhos.reduce((acc, tamanho) => {
+            let tempoTotal = 0;
+
+            for (let i = 0; i < iteracoes; i++) {
+                const inicio = performance.now();
+                gerarCaminhoOrdenado(tamanho);
+                const fim = performance.now();
+                tempoTotal += (fim - inicio);
+            }
+            
+            acc[tamanho] = ((tempoTotal / iteracoes) * 1000).toFixed(4);
+            return acc;
+        }, {});
+        
+        // Salva os valores fixos para evitar variação
+        localStorage.setItem("temposExecucao", JSON.stringify(resultados));
+    }
+    
+    return tamanhos.map(tamanho => ({
+        tamanho,
+        tempoExecucao: resultados[tamanho],
+        caminho: gerarCaminhoOrdenado(tamanho)
+    }));
 }
 
 function gerarCaminhoOrdenado(tamanho) {
