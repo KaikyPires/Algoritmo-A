@@ -1,4 +1,4 @@
-# Algoritmo A* para Navegação em Labirinto com Luigi
+# Algoritmo A*
 
 ## Descrição
 
